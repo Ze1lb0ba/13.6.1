@@ -6,30 +6,43 @@ internal class Program
     {
         var path = @"C:\Courses C#\Module13\Text1.txt";
 
-        var timer1 = new Stopwatch();
+        int i = 0;
+        long summaryList = 0;
 
-        timer1.Start();          
-        var textFile = new List<string>();
-        var myList = File.ReadAllLines(path);      
-        foreach(var item in myList)
+        while (i < 30000)
         {
-            textFile.Add(item);
+            var timer1 = new Stopwatch();
+            timer1.Start();
+            var textFile = new List<string>();
+            var myList = File.ReadAllLines(path);
+            foreach (var item in myList)
+            {
+                textFile.Add(item);
+            }
+            timer1.Stop();
+            i++;
+            summaryList += timer1.ElapsedMilliseconds;
         }
-        timer1.Stop();
+        Console.WriteLine("Среднее время работы List после 30 000 итераций: {0} милесекунд.", summaryList/30000);
+        i= 0;
+        summaryList= 0;
 
-        var timer2 = new Stopwatch();
-
-        timer2.Start();
-        var textFile2 = new LinkedList<string>();
-        var myList2 = File.ReadAllLines(path);
-        foreach(var item in myList2)
+        while (i < 30000)
         {
-            textFile2.AddLast(item);
+            var timer2 = new Stopwatch();
+            timer2.Start();
+            var textFile2 = new LinkedList<string>();
+            var myList2 = File.ReadAllLines(path);
+            foreach (var item in myList2)
+            {
+                textFile2.AddLast(item);
+            }
+            timer2.Stop();
+            i++; 
+            summaryList += timer2.ElapsedMilliseconds;
         }
-        timer2.Stop();
 
-        Console.WriteLine("Время работы List: {0} милесекунд.", timer1.ElapsedMilliseconds);
-        Console.WriteLine("Время работы LinkedList: {0} милесекунд.", timer2.ElapsedMilliseconds);
-
+        
+        Console.WriteLine("Среднее время работы LinkedList после 30 000 итераций: {0} милесекунд.", summaryList/30000);
     }
 }
